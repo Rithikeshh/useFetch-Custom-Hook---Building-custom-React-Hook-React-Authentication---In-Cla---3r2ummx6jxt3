@@ -23,7 +23,7 @@ export default function useFetch(api){
 
     useEffect(()=>{
         callApi(setLoading, setData, setError, api)
-    },[])
+    },[api])
 
     return {
         data: data,
