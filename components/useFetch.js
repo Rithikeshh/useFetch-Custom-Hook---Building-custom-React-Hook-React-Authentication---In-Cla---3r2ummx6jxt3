@@ -26,8 +26,8 @@ export default function useFetch(api){
     },[api])
 
     return {
-        data: data,
-        loading : loading,
-        error  : error
+        data,
+        loading,
+        error
     }
 }
