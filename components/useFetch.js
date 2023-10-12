@@ -1,33 +1,29 @@
-//write your code here
+// import { constant } from "cypress/types/lodash"
 
 import { useEffect, useState } from "react";
+import axios from 'axios';
 
-function callApi(setLoading, setData, setError, api){
-    // try{
-        fetch(api).then((response)=>{
-            return response.json()
-        }).then((result)=>{
-            setData(result)
-        }).catch((e)=>{
+//write your code here
 
-            setError(e)
-        })
-        // console.log('hi')
-    // }
-    setLoading(false)
-}
-export default function useFetch(api){
-    const [loading, setLoading] = useState(true);
-    const [data, setData] = useState(null);
-    const [error, setError] = useState(null);
-
-    useEffect(()=>{
-        callApi(setLoading, setData, setError, api)
-    },[api])
-
-    return {
-        data,
-        loading,
-        error
+ async function callApiHere(setLoading,setData,setError,url){
+    try{
+        const response=await axios.get(url);
+        setData(response.data);
     }
+    catch(errorMessage){
+        setError(errorMessage)
+    }
+    setLoading(false);
 }
+
+function useFetch(url){
+ const [data,setData]=useState(null);
+ const [loading,setLoading]=useState(true);
+ const [error,setError]=useState(null);
+
+ useEffect(()=>{
+    callApiHere(setLoading,setData,setError,url);
+ },[url])
+ return {data,loading,error}
+}
+export default useFetch
