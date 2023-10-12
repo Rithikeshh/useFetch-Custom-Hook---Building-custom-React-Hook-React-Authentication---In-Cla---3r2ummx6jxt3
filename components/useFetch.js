@@ -1,3 +1,33 @@
 //write your code here
 
-export default useFetch
+import { useEffect, useState } from "react";
+
+function callApi(setLoading, setData, setError, api){
+    // try{
+        fetch(api).then((response)=>{
+            return response.json()
+        }).then((result)=>{
+            setData(result)
+        }).catch((e)=>{
+
+            setError("Something went wrong")
+        })
+        // console.log('hi')
+    // }
+    setLoading(false)
+}
+export default function useFetch(api){
+    const [loading, setLoading] = useState(true);
+    const [data, setData] = useState(null);
+    const [error, setError] = useState(null);
+
+    useEffect(()=>{
+        callApi(setLoading, setData, setError, api)
+    },[])
+
+    return {
+        data: data,
+        loading : loading,
+        error  : error
+    }
+}
