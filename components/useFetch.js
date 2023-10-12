@@ -10,7 +10,7 @@ function callApi(setLoading, setData, setError, api){
             setData(result)
         }).catch((e)=>{
 
-            setError("Something went wrong")
+            setError(e)
         })
         // console.log('hi')
     // }
